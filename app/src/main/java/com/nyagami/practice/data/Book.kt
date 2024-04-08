@@ -1,6 +1,12 @@
 package com.nyagami.practice.data
 
 import androidx.annotation.DrawableRes
+import java.util.Calendar
 
-class Book (@DrawableRes val cover: Int, val name: String, val author: String, val likes: Int){
+enum class BookGenre (val title: String){
+    PhePhan("Phê phán"),
+    SuThat("Sự thật"),
+    ChamBiem("Châm biếm")
+}
+class Book (val name: String, val author: String, val hour: Int, val min: Int, val genres: List<BookGenre>){
 }
