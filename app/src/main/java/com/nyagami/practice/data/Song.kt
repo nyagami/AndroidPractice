@@ -15,3 +15,5 @@ data class Song (
 )
 
 data class Category(val album: String, val numberOfSongs: Int)
+
+data class Group(val genre: String, val numberOfSongs: Int)

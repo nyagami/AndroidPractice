@@ -14,6 +14,8 @@ interface SongDAO {
     suspend fun findByName(name: String): List<Song>
     @Query("SELECT album, COUNT(id) as numberOfSongs FROM Song GROUP BY album")
     suspend fun getAllCategories(): List<Category>
+    @Query("SELECT genre, COUNT(id) as numberOfSongs  FROM Song WHERE album = :album GROUP BY genre ORDER BY numberOfSongs DESC")
+    suspend fun getGenresByCategory(album: String): List<Group>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg songs: Song)
     @Delete
