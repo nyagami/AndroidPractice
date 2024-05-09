@@ -1,7 +1,6 @@
 package com.nyagami.practice.ui.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.BottomNavigation
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add

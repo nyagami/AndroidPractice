@@ -1,13 +1,12 @@
 package com.nyagami.practice.ui.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FormatListNumbered
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,8 +21,8 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import com.nyagami.practice.data.Song
 import com.nyagami.practice.db
+import com.nyagami.practice.ui.components.AppBar
 import com.nyagami.practice.ui.components.Item
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 object ListTab: Tab {
@@ -39,6 +38,7 @@ object ListTab: Tab {
             )
         }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @SuppressLint("CoroutineCreationDuringComposition")
     @Composable
     override fun Content() {
@@ -51,7 +51,11 @@ object ListTab: Tab {
             songs = songDAO.getAll()
         }
         val navigator = LocalNavigator.currentOrThrow
-        Scaffold {paddingValues ->
+        Scaffold (
+            topBar = {
+               AppBar(title = "List")
+            }
+        ) {paddingValues ->
             Column(modifier = Modifier.padding(paddingValues)) {
                 songs.forEach {
                     Item(item = it, onClick = {
