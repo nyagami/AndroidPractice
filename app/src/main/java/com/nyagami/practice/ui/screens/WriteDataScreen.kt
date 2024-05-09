@@ -1,24 +1,18 @@
 package com.nyagami.practice.ui.screens
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,6 +32,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.nyagami.practice.data.Song
 import com.nyagami.practice.db
+import com.nyagami.practice.ui.components.AppBar
 import kotlinx.coroutines.launch
 
 class WriteDataScreen(song: Song?): Screen {
@@ -69,16 +64,7 @@ class WriteDataScreen(song: Song?): Screen {
         val context = LocalContext.current
         Scaffold (
             topBar = {
-                IconButton(onClick = { navigator.pop()}) {
-                    Icon(imageVector = Icons.Filled.ArrowBackIosNew, contentDescription = null)
-                }
-                Box (
-                    Modifier
-                        .fillMaxWidth()
-                        .wrapContentWidth(align = Alignment.CenterHorizontally)
-                        .padding(top = 12.dp)) {
-                    Text(text = "Thêm bài hát")
-                }
+                AppBar(title = "Thêm bài hát")
             }
         ){paddingValues ->
             Column (
