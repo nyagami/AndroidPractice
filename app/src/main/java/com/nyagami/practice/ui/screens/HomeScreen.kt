@@ -21,7 +21,7 @@ import cafe.adriel.voyager.navigator.tab.TabNavigator
 object HomeScreen: Screen {
     private val tabs = listOf(
         ListTab,
-        SearchTab
+        CategoryTab
     )
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @Composable

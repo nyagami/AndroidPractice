@@ -13,3 +13,5 @@ data class Song (
     @ColumnInfo val genre: String,
     @ColumnInfo val liked: Boolean
 )
+
+data class Category(val album: String, val numberOfSongs: Int)
