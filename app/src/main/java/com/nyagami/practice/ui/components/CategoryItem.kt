@@ -47,7 +47,7 @@ fun CategoryItem(item: Category) {
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
-            Text(text = "Sô lượng: ${item.numberOfSongs}")
+            Text(text = "Số lượng: ${item.numberOfSongs}")
         }
     }
 }

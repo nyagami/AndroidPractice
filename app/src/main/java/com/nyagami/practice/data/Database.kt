@@ -12,7 +12,7 @@ interface SongDAO {
     suspend fun getAll(): List<Song>
     @Query("SELECT * FROM Song WHERE name LIKE '%' || :name || '%'")
     suspend fun findByName(name: String): List<Song>
-    @Query("SELECT album, COUNT(id) as numberOfSongs FROM Song GROUP BY id")
+    @Query("SELECT album, COUNT(id) as numberOfSongs FROM Song GROUP BY album")
     suspend fun getAllCategories(): List<Category>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg songs: Song)
