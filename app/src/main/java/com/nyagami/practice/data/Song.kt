@@ -1,4 +1,15 @@
 package com.nyagami.practice.data
 
-class Song (val id: Long, val name: String, val artist: String, val album: String, val genre: String, val liked: Boolean) {
-}
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class Song (
+    @PrimaryKey(autoGenerate = true) val id: Long?,
+    @ColumnInfo val name: String,
+    @ColumnInfo val artist: String,
+    @ColumnInfo val album: String,
+    @ColumnInfo val genre: String,
+    @ColumnInfo val liked: Boolean
+)

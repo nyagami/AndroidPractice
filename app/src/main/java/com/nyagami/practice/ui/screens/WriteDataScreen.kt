@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
@@ -20,15 +19,14 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +37,8 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.nyagami.practice.data.Song
-import com.nyagami.practice.data.SongDbHelper
+import com.nyagami.practice.db
+import kotlinx.coroutines.launch
 
 class WriteDataScreen(song: Song?): Screen {
     private val albums = listOf(
@@ -59,8 +58,9 @@ class WriteDataScreen(song: Song?): Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
+        val songDAO = db.songDao();
+        val coroutineScope = rememberCoroutineScope()
         val navigator = LocalNavigator.currentOrThrow
-        val dbHelper = SongDbHelper(LocalContext.current)
         var name by remember { mutableStateOf("") }
         var artist by remember { mutableStateOf("") }
         var album by remember { mutableStateOf(albums[0]) }
@@ -109,10 +109,13 @@ class WriteDataScreen(song: Song?): Screen {
                     Checkbox(checked = liked, onCheckedChange = {liked = it})
                 }
                 Button(onClick = {
-                    if (name.isBlank() || artist.isBlank()){
-                        Toast.makeText(context, "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show()
-                    }else{
-                        dbHelper.addSong(Song(1, name, artist, album, genre, liked))
+                    coroutineScope.launch {
+                        if (name.isBlank() || artist.isBlank()){
+                            Toast.makeText(context, "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show()
+                        }else{
+                            songDAO.insertAll(Song(null, name, artist, album, genre, liked))
+                            navigator.pop()
+                        }
                     }
                 }, modifier = Modifier.width(100.dp)) {
                     Text(text = "Tạo")
