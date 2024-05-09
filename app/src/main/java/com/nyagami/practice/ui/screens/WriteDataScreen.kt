@@ -14,6 +14,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -34,6 +35,7 @@ import com.nyagami.practice.db
 import com.nyagami.practice.ui.components.AppBar
 import com.nyagami.practice.ui.components.DateInput
 import com.nyagami.practice.ui.components.SelectPicker
+import com.nyagami.practice.ui.components.TimeInput
 import kotlinx.coroutines.launch
 
 class WriteDataScreen(song: Song?): Screen {
@@ -63,7 +65,8 @@ class WriteDataScreen(song: Song?): Screen {
         var genreIndex by remember { mutableIntStateOf(0) }
         var liked by remember { mutableStateOf(false) }
         val context = LocalContext.current
-        var dateState = rememberDatePickerState();
+        var dateState = rememberDatePickerState()
+        var timeState = rememberTimePickerState()
         Scaffold (
             topBar = {
                 AppBar(title = "Thêm bài hát")
@@ -97,6 +100,7 @@ class WriteDataScreen(song: Song?): Screen {
                     Checkbox(checked = liked, onCheckedChange = {liked = it})
                 }
                 DateInput(label = "Date", state = dateState)
+                TimeInput(label = "Time", state = timeState)
                 Button(onClick = {
                     coroutineScope.launch {
                         if (name.isBlank() || artist.isBlank()){
